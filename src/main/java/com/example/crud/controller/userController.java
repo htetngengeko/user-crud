@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.List;
+
 @Controller
 public class userController {
     @Autowired
@@ -49,6 +51,8 @@ public class userController {
         User existUser = userRepo.checkLogin(user.getEmail(), user.getPassword());
 
         if (existUser != null) {
+            List<User> users = userRepo.findAll();
+            model.addAttribute("users", users);
             return "main";
         } else {
             model.addAttribute("error", true);
